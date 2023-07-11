@@ -72,4 +72,4 @@ python national_tv.py
 
 ## Контактная информация
 
-Если у вас возникли вопросы или предложения, пожалуйста, свяжитесь со мной по электронной почте: [example@example.com](mailto:neyslutrans@outlook.com).
+Если у вас возникли вопросы или предложения, пожалуйста, свяжитесь со мной по электронной почте: [neyslutrans@outlook.com](mailto:neyslutrans@outlook.com).
