@@ -16,7 +16,7 @@
 1. Склонируйте репозиторий на свою локальную машину:
 
 ```shell
-git clone git@github.com:Neyslutrans/BMP-Automation-Hub.git
+git clone https://github.com/Neyslutrans/BMP-Automation-Hub.git
 ```
 
 2. Перейдите в папку проекта:
