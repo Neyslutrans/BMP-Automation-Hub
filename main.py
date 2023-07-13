@@ -1,28 +1,18 @@
 import os
+import platform
 
-def run_affinity_script():
+def run_script(script_name):
     try:
-        os.system("python3 affinity.py")
+        if platform.system() == "Windows":
+            os.system(f"python {script_name}")
+        elif platform.system() == "Darwin":  # macOS
+            os.system(f"python3 {script_name}")
+        elif platform.system() == "Linux":  # Linux
+            os.system(f"python3 {script_name}")
+        else:
+            print(f"Ошибка: Неподдерживаемая операционная система")
     except Exception as e:
-        print(f"Ошибка при выполнении скрипта affinity.py: {e}")
-
-def run_tvr_script():
-    try:
-        os.system("python3 tvr.py")
-    except Exception as e:
-        print(f"Ошибка при выполнении скрипта tvr.py: {e}")
-
-def run_reach_script():
-    try:
-        os.system("python3 reach.py")
-    except Exception as e:
-        print(f"Ошибка при выполнении скрипта reach.py: {e}")
-
-def run_positioning_script():
-    try:
-        os.system("python3 positioning.py")
-    except Exception as e:
-        print(f"Ошибка при выполнении скрипта positioning.py: {e}")
+        print(f"Ошибка при выполнении скрипта {script_name}: {e}")
 
 def print_menu():
     print("Добро пожаловать в программу!")
@@ -38,12 +28,12 @@ def print_instructions():
     print("Для выхода из программы введите 0.")
 
 def main():
-    # Словарь для хранения связи между номером скрипта и функцией
+    # Словарь для хранения связи между номером скрипта и именем файла
     scripts = {
-        "1": run_affinity_script,
-        "2": run_tvr_script,
-        "3": run_reach_script,
-        "4": run_positioning_script
+        "1": "affinity.py",
+        "2": "tvr.py",
+        "3": "reach.py",
+        "4": "positioning.py"
     }
 
     while True:
@@ -52,9 +42,9 @@ def main():
         choice = input("\nВведите номер скрипта: ")
 
         if choice in scripts:
-            # Вызов функции из словаря по выбранному номеру скрипта
-            script_func = scripts[choice]
-            script_func()
+            # Запуск выбранного скрипта
+            script_name = scripts[choice]
+            run_script(script_name)
         elif choice == "0":
             break
         else:
