@@ -5,7 +5,7 @@ def restore_repository():
     subprocess.run(['git', 'restore', '.'])
 
     # Удаление всех неотслеживаемых файлов
-    subprocess.run(['git', 'clean', '-f'])
+    subprocess.run(['git', 'clean', '-fd'])
 
     # Получение обновлений из удалённого репозитория
     subprocess.run(['git','pull'])
