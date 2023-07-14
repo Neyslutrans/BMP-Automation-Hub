@@ -65,7 +65,7 @@ def main():
         elif choice == "0":
             break
         else:
-            print_slowly("\nНеверный ввод. Пожалуйста, выберите номер из меню.")
+            print_slowly("\nНеверный ввод. Пожалуйста, выберите номер из меню.\n")
 
         print_choice()
 
