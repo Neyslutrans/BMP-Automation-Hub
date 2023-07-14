@@ -1,25 +1,24 @@
-import os
 import platform
+import subprocess
 import sys
 import time
-from colorama import Fore, Style
+from colorama import init, Fore, Style
+
+if platform.system() == "Windows":
+        init(convert=True)
 
 def run_script(script_name):
     try:
         if platform.system() == "Windows":
-            os.system(f"python {script_name}")
-        elif platform.system() == "Darwin":  # macOS
-            os.system(f"python3 {script_name}")
-        elif platform.system() == "Linux":  # Linux
-            os.system(f"python3 {script_name}")
+            subprocess.run(["python", script_name], shell=True)
         else:
-            print(f"Ошибка: Неподдерживаемая операционная система")
+            subprocess.run(["python3", script_name])
     except Exception as e:
         print(f"Ошибка при выполнении скрипта {script_name}: {e}")
 
 def print_slowly(text):
     for char in text:
-        sys.stdout.write(Fore.GREEN + chr(27) + "[1m" + char + Style.RESET_ALL)
+        sys.stdout.write(Fore.GREEN + char + Style.RESET_ALL)
         sys.stdout.flush()
         time.sleep(0.01)  # Задержка в секундах между символами
 
