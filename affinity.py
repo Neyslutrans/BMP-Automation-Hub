@@ -20,7 +20,7 @@ def main() -> None:
 
                 export_dataframe_to_sheet(df["dataframe"], ws)
 
-                format_sheet(ws)
+                format_sheet(ws, 'affinity')
 
             except Exception as e:
                 print(f"Ошибка при обработке файла: {file}")
