@@ -28,6 +28,34 @@ def affinity_dataframe(df: pd.DataFrame):
 
     except Exception as e:
         raise Exception("Ошибка при обработке датафрейма") from e
+    
+
+# Рейтинг
+def tvr_dataframe(df: pd.DataFrame):
+    try:
+        df.drop(df.columns[[0, 4]], axis=1, inplace=True)
+
+        # Определяем целевую аудиторию
+        target = df.iloc[0, 3]
+
+        # Переименовываем столбцы
+        df.columns = ['Блок распространения', 'Телеканал', 'PT / OP', target]
+        df.drop([0, 1], axis=0, inplace=True)
+
+        # Форматируем телеканалы и определяем формат чисел
+        df['Телеканал'] = df['Телеканал'].apply(lambda x: get_cleared_channel(x))
+        df[target] = df[target].apply(lambda x: str(x).replace(',', '.')).astype('float64')
+
+        # Округляем значения до 4 знаков
+        df = df.round(4)
+
+        return {
+            'dataframe': df,
+            'target': target
+        }
+
+    except Exception as e:
+        raise Exception("Ошибка при обработке датафрейма") from e
 
 
 # Охват
