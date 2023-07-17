@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog
 
+
 class PathManager:
     @staticmethod
     def open_file_dialog():
@@ -8,7 +9,7 @@ class PathManager:
         root.withdraw()
         file_paths = filedialog.askopenfilenames()
         return file_paths
-    
+
     @staticmethod
     def save_file_dialog():
         root = tk.Tk()

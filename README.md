@@ -32,7 +32,7 @@
 2. Установите Homebrew, если вы еще не установили его, выполнив команду:
 
    ```shell
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   /bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
    ```
 
 3. Установите Git, выполнив команду:
@@ -76,7 +76,7 @@
 1. Перейдите на официальный сайт Python: [https://www.python.org/downloads/windows/](https://www.python.org/downloads/windows/).
 2. Скачайте установочный файл для Windows.
 3. Запустите загруженный установочный файл.
-4. В мастере установки выберите опцию "Add Python to PATH" и следуйте инструкциям мастера.
+4. В мастере установки выберите опцию 'Add Python to PATH' и следуйте инструкциям мастера.
 5. После завершения установки Python будет доступен из командной строки.
 
 ### macOS
@@ -85,7 +85,7 @@
 2. Установите Homebrew, если вы еще не установили его, выполнив команду:
 
    ```shell
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   /bin/bash -c '$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)'
    ```
 
 3. Установите Python, выполнив команду:
@@ -184,10 +184,10 @@
 
 #### Дополнительные выгрузки
 
-- `affinity.py` - скрипт для обработки выгрузок типа "Affinity"
-- `tvr.py` - скрипт для обработки выгрузок типа "TVR"
-- `reach.py` - скрипт для обработки выгрузок типа "Reach"
-- `positioning.py` - скрипт для обработки выгрузок типа "Positioning"
+- `affinity.py` - скрипт для обработки выгрузок типа 'Affinity'
+- `tvr.py` - скрипт для обработки выгрузок типа 'TVR'
+- `reach.py` - скрипт для обработки выгрузок типа 'Reach'
+- `positioning.py` - скрипт для обработки выгрузок типа 'Positioning'
 
 ## Вклад
 

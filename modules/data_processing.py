@@ -27,7 +27,7 @@ def affinity_dataframe(df: pd.DataFrame):
         }
 
     except Exception as e:
-        raise Exception("Ошибка при обработке датафрейма") from e
+        raise Exception('Ошибка при обработке датафрейма') from e
     
 
 # Рейтинг
@@ -55,7 +55,7 @@ def tvr_dataframe(df: pd.DataFrame):
         }
 
     except Exception as e:
-        raise Exception("Ошибка при обработке датафрейма") from e
+        raise Exception('Ошибка при обработке датафрейма') from e
 
 
 # Охват
@@ -109,7 +109,7 @@ def reach_dataframe(df: pd.DataFrame):
         }
 
     except Exception as e:
-        raise Exception("Ошибка при обработке датафрейма") from e
+        raise Exception('Ошибка при обработке датафрейма') from e
 
 
 # Позиционирование
@@ -137,7 +137,7 @@ def positioning_dataframe(df: pd.DataFrame):
         }
 
     except Exception as e:
-        raise Exception("Ошибка при обработке датафрейма") from e
+        raise Exception('Ошибка при обработке датафрейма') from e
 
 
 def get_cleared_channel(string: str):
