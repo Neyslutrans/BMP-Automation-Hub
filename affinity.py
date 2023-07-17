@@ -1,6 +1,6 @@
 from modules import paths
 from modules.data_processing import affinity_dataframe
-from modules.excel_operations import WorkbookManager
+from modules.workbook import WorkbookManager
 from modules.dataframe_operations import import_dataframe, export_dataframe_to_sheet
 
 
