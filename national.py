@@ -1,4 +1,3 @@
-from openpyxl.utils.dataframe import dataframe_to_rows
 from modules.paths import PathManager
 from modules.dataframe import DataframeManager
 from modules.workbook import WorkbookManager
@@ -231,6 +230,7 @@ def is_substring(substrings: tuple, string: str) -> bool:
 def get_time_interval(time: str) -> str:
     '''Возвращает интервал времени'''
     hours = int(time[:2])
+
     intervals = {
         (6, 8): '06:00:00 - 09:00:00',
         (9, 12): '09:00:00 - 13:00:00',

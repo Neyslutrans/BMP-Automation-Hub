@@ -1,5 +1,5 @@
 from modules import paths
-from modules.logics import tvr_dataframe
+from modules.logics import ProcessingManager
 from modules.workbook import WorkbookManager
 from modules.dataframe import DataframeManager
 
@@ -15,7 +15,7 @@ def main() -> None:
             try:
                 print(f'Обрабатывается файл: {file}')
                 df = DataframeManager.import_dataframe(file)
-                df = tvr_dataframe(df)
+                df = ProcessingManager.tvr(df)
                 sheet_name = f'{df["target"]} - {counter}'
                 sheet = WorkbookManager.create_sheet(workbook, sheet_name)
                 counter += 1

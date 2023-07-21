@@ -1,5 +1,5 @@
 from modules.paths import PathManager
-from modules.logics import affinity_dataframe
+from modules.logics import ProcessingManager
 from modules.workbook import WorkbookManager
 from modules.dataframe import DataframeManager
 
@@ -16,7 +16,7 @@ def main() -> None:
                 print(f'Обрабатывается файл: {file}')
 
                 df = DataframeManager.import_dataframe(file)
-                df = affinity_dataframe(df)
+                df = ProcessingManager.affinity(df)
 
                 sheet_name = f'{df["target"]} - {counter}'
                 sheet = WorkbookManager.create_sheet(workbook, sheet_name)
