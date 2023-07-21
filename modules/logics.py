@@ -3,6 +3,7 @@ import re
 
 # Аффинити
 def affinity_dataframe(df: pd.DataFrame):
+
     try:
         df.drop(df.columns[[0, 3, 4, 7]], axis=1, inplace=True)
         df.reset_index(inplace=True, drop=True)
@@ -32,6 +33,7 @@ def affinity_dataframe(df: pd.DataFrame):
 
 # Рейтинг
 def tvr_dataframe(df: pd.DataFrame):
+
     try:
         df.drop(df.columns[[0, 4]], axis=1, inplace=True)
 
@@ -114,6 +116,7 @@ def reach_dataframe(df: pd.DataFrame):
 
 # Позиционирование
 def positioning_dataframe(df: pd.DataFrame):
+    
     try:
         df.drop(df.columns[[0, 4]], axis=1, inplace=True)
 
@@ -140,5 +143,6 @@ def positioning_dataframe(df: pd.DataFrame):
         raise Exception('Ошибка при обработке датафрейма') from e
 
 
-def get_cleared_channel(string: str):
+def get_cleared_channel(string: str) -> str:
+    '''Возвращает строку с телеканалом без скобок и значений в них'''
     return re.sub(r'\([^()]*\)', '', string).strip()
