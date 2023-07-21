@@ -208,8 +208,7 @@ def main() -> None:
     wb = WorkbookManager.create_workbook()
     ws = WorkbookManager.create_sheet(wb, 'Выгрузка')
 
-    for row in dataframe_to_rows(df, index=False, header=True):
-        ws.append(row)
+    DataframeManager.export_dataframe_to_sheet(df, ws)
 
     # Форматирование Excel книги
     WorkbookManager.format_sheet(ws)
