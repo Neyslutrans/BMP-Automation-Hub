@@ -12,6 +12,7 @@ class ProcessingManager:
             df.reset_index(inplace=True, drop=True)
 
             target = df.iloc[0, 3]
+            
             df.drop([0, 1], axis=0, inplace=True)
 
             df.columns = ['Блок распространения', 'Телеканал', 'Sales TVR', f'{target} TVR']

@@ -9,9 +9,11 @@ def main() -> None:
     try:
         file_paths = PathManager.open_file_dialog()
         workbook = WorkbookManager.create_workbook()
+
         counter = 1
 
         for file in file_paths:
+            
             try:
                 print(f'Обрабатывается файл: {file}')
 
@@ -31,6 +33,7 @@ def main() -> None:
                 print(f'Ошибка при обработке файла: {file}')
                 print(f'Тип ошибки: {type(e).__name__}')
                 print(f'Сообщение об ошибке: {str(e)}')
+                
                 continue
 
         name = PathManager.save_file_dialog()

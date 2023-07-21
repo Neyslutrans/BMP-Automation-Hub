@@ -12,19 +12,18 @@ def main() -> None:
 
     if not file_path:
         print('Файл не выбран.')
-        return
+        return None
 
     df = DataframeManager.import_dataframe(file_path)
     df.dropna(axis='columns', how='all', inplace=True)
 
     # Избавляет от NaN в первых трех строках
     df.iloc[0] = df.iloc[0].apply(lambda x: '' if x == 'Consolidated' else x)
-    df.iloc[1] = df.iloc[1].apply(lambda x: '' if x is x is np.NAN else x)
-    df.iloc[2] = df.iloc[2].apply(lambda x: '' if x is x is np.NAN else x)
+    df.iloc[1] = df.iloc[1].apply(lambda x: '' if x is np.NAN else x)
+    df.iloc[2] = df.iloc[2].apply(lambda x: '' if x is np.NAN else x)
 
     # Конкатенирует строки в заголовок
-    header = [str(i + j).strip()
-              for i, j in zip(df.iloc[0], (df.iloc[1] + ' ' + df.iloc[2]))]
+    header = [str(i + j).strip() for i, j in zip(df.iloc[0], (df.iloc[1] + ' ' + df.iloc[2]))]
     df.columns = header
 
     # Удаляет лишние строки и сбрасываем индексацию
@@ -36,15 +35,13 @@ def main() -> None:
 
     for column in df.columns:
         if is_substring(substrings, column):
-            df[column] = df[column].apply(lambda x: str(
-                x).replace(',', '.').strip()).astype('float64')
+            df[column] = df[column].apply(lambda x: str(x).replace(',', '.').strip()).astype('float64')
 
     # Приводит дату в формате dd/mm/yy к dd.mm.yy
     df['Дата'] = df['Дата'].apply(lambda x: x.replace('/', '.'))
 
     # Импорт дат (CSV UTF-8)
-    date = pd.read_csv('addons/dates.csv',
-                       encoding='utf-8', sep=';')
+    date = pd.read_csv('addons/dates.csv',encoding='utf-8', sep=';')
     date.dropna(axis='columns', how='all', inplace=True)
 
     # LEFT JOIN
@@ -53,40 +50,36 @@ def main() -> None:
     # Определяет временные столбцы
     df['Время начала (0-24)'] = df['Ролик время начала'].apply(get_correct_time)
     df['Час начала'] = df['Время начала (0-24)'].apply(lambda x: int(x[:2]))
-    df['День / Ночь'] = np.where((df['Час начала'] >= 2)
-                                 & (df['Час начала'] <= 4), 'Ночь', 'День')
-    df['Временной интервал'] = df['Время начала (0-24)'].apply(
-        get_time_interval)
+    df['День / Ночь'] = np.where((df['Час начала'] >= 2) & (df['Час начала'] <= 4), 'Ночь', 'День')
+    df['Временной интервал'] = df['Время начала (0-24)'].apply(get_time_interval)
 
     # Импорт телеканалов (CSV UTF-8)
-    ad = pd.read_csv('addons/ad_channels.csv',
-                     encoding='utf-8', sep=';')
+    ad = pd.read_csv('addons/ad_channels.csv',encoding='utf-8', sep=';')
     ad.dropna(axis='columns', how='all', inplace=True)
 
     # Определяет тип телеканала
-    df['Тип канала'] = df['Телекомпания'].apply(
-        lambda x: get_channel_type(x, ad))
+    df['Тип канала'] = df['Телекомпания'].apply(lambda x: get_channel_type(x, ad))
 
     # Импортируем файл для установки границ Prime (CSV UTF-8)
     off_prime = pd.read_csv('addons/off_prime.csv', encoding='utf-8', sep=';')
+
     # Удаляем пустые столбцы
     off_prime.dropna(axis='columns', how='all', inplace=True)
 
     df = df.merge(off_prime, how='left', on=['Тип канала', 'День тип'])
 
     # Платформа оригинала
-    df['Платформа оригинала'] = df['Телекомпания'].apply(
-        lambda x: 'ТВ' if 'СЕТЕВОЕ' in x else 'Интернет')
+    df['Платформа оригинала'] = df['Телекомпания'].apply(lambda x: 'ТВ' if 'СЕТЕВОЕ' in x else 'Интернет')
 
     # Удаляем из каналов скобки
     df['Телекомпания'] = df['Телекомпания'].apply(get_cleared_channel)
 
     # Премиальное / Средний
-    df['Позиционирование'] = df['Ролик позиционирование'].apply(
-        lambda x: 'Средний' if x == 'Средний' else 'Премиальное')
+    df['Позиционирование'] = df['Ролик позиционирование'].apply(lambda x: 'Средний' if x == 'Средний' else 'Премиальное')
 
     # Импортируем файл для определения баинговой аудитории (CSV UTF-8)
     auditory = pd.read_csv('addons/auditory.csv', encoding='utf-8', sep=';')
+
     # Удаляем пустые столбцы
     auditory.dropna(axis='columns', how='all', inplace=True)
 
@@ -102,10 +95,8 @@ def main() -> None:
     df = df.merge(channels, how='left', on=['Ролик распространение', 'Телекомпания'])
 
     # Проставляем прайм
-    df['от'] = np.where(pd.to_timedelta(df['Время начала (0-24)'])
-                        > pd.to_timedelta(df['Off от']), 1, 0)
-    df['до'] = np.where(pd.to_timedelta(df['Время начала (0-24)'])
-                        <= pd.to_timedelta(df['Off до']), 1, 0)
+    df['от'] = np.where(pd.to_timedelta(df['Время начала (0-24)']) > pd.to_timedelta(df['Off от']), 1, 0)
+    df['до'] = np.where(pd.to_timedelta(df['Время начала (0-24)']) <= pd.to_timedelta(df['Off до']), 1, 0)
     df['от_до'] = df['от'] * df['до']
     df['Prime'] = np.where(df['от_до'] == 1, 'OFF', 'PT')
 
@@ -129,8 +120,7 @@ def main() -> None:
     tv.columns = [column.replace('TV ', '') for column in tv.columns]
 
     tv.insert(0, 'Баинговая аудитория', df['Баинговая аудитория'])
-    df['Sales TVR TV'] = tv.apply(
-        lambda x: x[x['Баинговая аудитория']], axis=1)
+    df['Sales TVR TV'] = tv.apply(lambda x: x[x['Баинговая аудитория']], axis=1)
 
     # Sales TVR Desktop
     desktop = df[[column for column in df.columns if 'Desktop BA' in column]]
@@ -184,22 +174,17 @@ def main() -> None:
             df[f'Std. TVR {target} Desktop'] + df[f'Std. TVR {target} Mobile']
 
     # Импорт файла для округления (CSV UTF-8)
-    round = pd.read_csv('addons/round.csv',
-                        encoding='utf-8', sep=';')
+    round = pd.read_csv('addons/round.csv', encoding='utf-8', sep=';')
     # Удаляем пустые столбцы
     round.dropna(axis='columns', how='all', inplace=True)
 
-    df = df.merge(round, how='left', on=[
-                  'Год', 'Ролик распространение', 'Телекомпания'])
+    df = df.merge(round, how='left', on=['Год', 'Ролик распространение', 'Телекомпания'])
 
     # Добавляем округление
-    df['Округление'] = df['Округление'].apply(
-        lambda x: x.replace(',', '.').strip()).astype('float64')
+    df['Округление'] = df['Округление'].apply(lambda x: x.replace(',', '.').strip()).astype('float64')
     df['GRP_округл'] = np.max(df[['Big Sales TVR', 'Округление']], axis=1)
-    df['GRP20_округл'] = (
-        df['GRP_округл'] * df['Ролик ожидаемая длительность']) / 20
-    df['GRP20/min'] = np.where(df['Ролик тип'] == 'Ролик',
-                               df['GRP20_округл'], df['Ролик ожидаемая длительность'] / 60)
+    df['GRP20_округл'] = (df['GRP_округл'] * df['Ролик ожидаемая длительность']) / 20
+    df['GRP20/min'] = np.where(df['Ролик тип'] == 'Ролик', df['GRP20_округл'], df['Ролик ожидаемая длительность'] / 60)
 
     df = df.round(4)
 
