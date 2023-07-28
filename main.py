@@ -36,6 +36,7 @@ def print_choice():
     print_slowly('2. TVR\n')
     print_slowly('3. Reach\n')
     print_slowly('4. Positioning\n')
+    print_slowly('5. Национальная выгрузка\n')
     print_slowly('0. Выход\n')
 
 
@@ -50,7 +51,8 @@ def main():
         '1': 'affinity.py',
         '2': 'tvr.py',
         '3': 'reach.py',
-        '4': 'positioning.py'
+        '4': 'positioning.py',
+        '5': 'national.py',
     }
 
     print_menu()
@@ -58,6 +60,7 @@ def main():
     print_instructions()
 
     while True:
+
         print_slowly('\nВведите номер скрипта: ')
 
         choice = input()

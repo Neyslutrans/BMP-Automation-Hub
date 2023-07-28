@@ -1,25 +1,31 @@
-from modules import paths
-from modules.data_processing import tvr_dataframe
+from modules.paths import PathManager
+from modules.logics import ProcessingManager
 from modules.workbook import WorkbookManager
-from modules.dataframe_operations import import_dataframe, export_dataframe_to_sheet
+from modules.dataframe import DataframeManager
 
 
 def main() -> None:
+
     try:
-        file_paths = paths.PathManager.open_file_dialog()
+        file_paths = PathManager.open_file_dialog()
         workbook = WorkbookManager.create_workbook()
+
         counter = 1
 
         for file in file_paths:
+
             try:
                 print(f'Обрабатывается файл: {file}')
-                df = import_dataframe(file)
-                df = tvr_dataframe(df)
+
+                df = DataframeManager.import_dataframe(file)
+                df = ProcessingManager.tvr(df)
+
                 sheet_name = f'{df["target"]} - {counter}'
                 sheet = WorkbookManager.create_sheet(workbook, sheet_name)
+
                 counter += 1
 
-                export_dataframe_to_sheet(df['dataframe'], sheet)
+                DataframeManager.export_dataframe_to_sheet(df['dataframe'], sheet)
 
                 WorkbookManager.format_sheet(sheet)
 
@@ -27,9 +33,11 @@ def main() -> None:
                 print(f'Ошибка при обработке файла: {file}')
                 print(f'Тип ошибки: {type(e).__name__}')
                 print(f'Сообщение об ошибке: {str(e)}')
+
                 continue
 
-        name = paths.PathManager.save_file_dialog()
+        name = PathManager.save_file_dialog()
+
         WorkbookManager.save_workbook(workbook, name)
 
     except Exception as e:
