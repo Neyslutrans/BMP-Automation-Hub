@@ -10,6 +10,13 @@ class WorkbookManager:
         return openpyxl.Workbook()
 
     @staticmethod
+    def load_workbook(filename):
+        try:
+            return openpyxl.load_workbook(filename)
+        except Exception as e:
+            raise Exception('Ошибка при загрузке книги') from e
+
+    @staticmethod
     def create_sheet(workbook, name):
         return workbook.create_sheet(name)
 
@@ -36,5 +43,9 @@ class WorkbookManager:
 
     @staticmethod
     def save_workbook(workbook, name):
-        del workbook['Sheet']
+        try:
+            del workbook['Sheet']
+        except:
+            pass
+
         workbook.save(name)

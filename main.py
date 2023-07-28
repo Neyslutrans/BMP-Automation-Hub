@@ -32,12 +32,16 @@ def print_menu():
 
 def print_choice():
     print()
+    print_slowly('Дополнительные выгрузки:\n\n')
     print_slowly('1. Affinity\n')
     print_slowly('2. TVR\n')
     print_slowly('3. Reach\n')
-    print_slowly('4. Positioning\n')
+    print_slowly('4. Positioning\n\n')
+    print_slowly('Основные выгрузки\n\n')
     print_slowly('5. Национальная выгрузка\n')
-    print_slowly('6. Панель\n')
+    print_slowly('6. Панель\n\n')
+    print_slowly('Опционально\n\n')
+    print_slowly('7. Сравнение Excel файлов\n\n')
     print_slowly('0. Выход\n')
 
 
@@ -55,6 +59,7 @@ def main():
         '4': 'positioning.py',
         '5': 'national.py',
         '6': 'panel.py',
+        '7': 'excel.py',
     }
 
     print_menu()
