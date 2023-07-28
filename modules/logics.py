@@ -150,3 +150,42 @@ class ProcessingManager:
 def get_cleared_channel(string: str) -> str:
     '''Возвращает строку с телеканалом без скобок и значений в них'''
     return re.sub(r'\([^()]*\)', '', string).strip()
+
+
+def get_time_interval(time: str) -> str:
+    '''Возвращает интервал времени'''
+    hours = int(time[:2])
+
+    intervals = {
+        (6, 8): '06:00:00 - 09:00:00',
+        (9, 12): '09:00:00 - 13:00:00',
+        (13, 15): '13:00:00 - 16:00:00',
+        (16, 18): '16:00:00 - 19:00:00',
+        (19, 21): '19:00:00 - 22:00:00',
+        (22, 23): '22:00:00 - 00:00:00',
+        (0, 5): '00:00:00 - 06:00:00'
+    }
+
+    for interval, result in intervals.items():
+        if interval[0] <= hours <= interval[1]:
+            return result
+
+
+def get_correct_time(time: str) -> str:
+    '''Formats 29:00:00 hour format to 24:00:00'''
+    hours, minutes, seconds = map(int, time.split(':'))
+
+    hours %= 24
+
+    return f'{hours:02}:{minutes:02}:{seconds:02}'
+
+
+def get_channel_type(telecompany: str, df: pd.DataFrame) -> str:
+    '''Возвращает тип телеканала'''
+    telecompany_name = telecompany.replace('(СЕТЕВОЕ ВЕЩАНИЕ)', '').strip()
+    if telecompany_name in df['Union']:
+        return 'ЕРК'
+    elif telecompany_name in df['Digital']:
+        return 'ЦРК'
+    else:
+        return 'Нац'
