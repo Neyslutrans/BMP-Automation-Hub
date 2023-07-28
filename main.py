@@ -37,6 +37,7 @@ def print_choice():
     print_slowly('3. Reach\n')
     print_slowly('4. Positioning\n')
     print_slowly('5. Национальная выгрузка\n')
+    print_slowly('6. Панель\n')
     print_slowly('0. Выход\n')
 
 
@@ -53,6 +54,7 @@ def main():
         '3': 'reach.py',
         '4': 'positioning.py',
         '5': 'national.py',
+        '6': 'panel.py',
     }
 
     print_menu()
