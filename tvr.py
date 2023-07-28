@@ -1,4 +1,4 @@
-from modules import paths
+from modules.paths import PathManager
 from modules.logics import ProcessingManager
 from modules.workbook import WorkbookManager
 from modules.dataframe import DataframeManager
@@ -7,7 +7,7 @@ from modules.dataframe import DataframeManager
 def main() -> None:
 
     try:
-        file_paths = paths.PathManager.open_file_dialog()
+        file_paths = PathManager.open_file_dialog()
         workbook = WorkbookManager.create_workbook()
 
         counter = 1
@@ -33,10 +33,10 @@ def main() -> None:
                 print(f'Ошибка при обработке файла: {file}')
                 print(f'Тип ошибки: {type(e).__name__}')
                 print(f'Сообщение об ошибке: {str(e)}')
-                
+
                 continue
 
-        name = paths.PathManager.save_file_dialog()
+        name = PathManager.save_file_dialog()
 
         WorkbookManager.save_workbook(workbook, name)
 
