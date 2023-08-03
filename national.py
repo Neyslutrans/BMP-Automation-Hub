@@ -243,9 +243,9 @@ def get_correct_time(time: str) -> str:
 def get_channel_type(telecompany: str, df: pd.DataFrame) -> str:
     '''Возвращает тип телеканала'''
     telecompany_name = telecompany.replace('(СЕТЕВОЕ ВЕЩАНИЕ)', '').strip()
-    if telecompany_name in df['Union']:
+    if telecompany_name in df['Union'].to_list():
         return 'ЕРК'
-    elif telecompany_name in df['Digital']:
+    elif telecompany_name in df['Digital'].to_list():
         return 'ЦРК'
     else:
         return 'Нац'
