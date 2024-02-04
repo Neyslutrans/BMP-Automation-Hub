@@ -39,9 +39,11 @@ def print_choice():
     print_slowly('4. Positioning\n\n')
     print_slowly('Основные выгрузки\n\n')
     print_slowly('5. Национальная выгрузка\n')
-    print_slowly('6. Панель\n\n')
+    print_slowly('6. Региональная выгрузка\n\n')
+    print_slowly('7. Панель\n\n')
+
     print_slowly('Опционально\n\n')
-    print_slowly('7. Сравнение Excel файлов\n\n')
+    print_slowly('8. Сравнение Excel файлов\n\n')
     print_slowly('0. Выход\n')
 
 
@@ -58,8 +60,9 @@ def main():
         '3': 'reach.py',
         '4': 'positioning.py',
         '5': 'national.py',
-        '6': 'panel.py',
-        '7': 'excel.py',
+        '6': 'regional.py',
+        '7': 'panel.py',
+        '8': 'excel.py',
     }
 
     print_menu()
